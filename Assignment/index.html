@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel =icon" type="image/png" href="kopi 2025.png">
+  <title>Daily Dose Coffee</title>
+  <link rel="icon" type="image/png" href="kopi 2025.png">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f7f3ec;
+      color: #3e2c23;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h3 {
+      text-align: center;
+      color: #4b2e18;
+    }
+
+    .menu-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    .menu-item {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      width: 200px;
+      transition: transform 0.2s;
+    }
+
+    .menu-item:hover {
+      transform: scale(1.05);
+    }
+
+    .menu-item img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #6f4e37;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #593a28;
+    }
+
+    #cart {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 15px;
+      font-size: 16px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .remove-btn {
+      background: none;
+      color: red;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+    }
+
+    form {
+      background: #fff;
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      margin-top: 15px;
+    }
+
+    input {
+      width: 95%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+  </style>
+  <script>
+    let cart = [];
+
+    function addToCart(name, price) {
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.quantity += 1;
+        existing.total = existing.quantity * price;
+      } else {
+        cart.push({ name, price, quantity: 1, total: price });
+      }
+      updateCart();
+    }
+
+    function removeFromCart(name) {
+      cart = cart.filter(item => item.name !== name);
+      updateCart();
+    }
+
+    function updateCart() {
+      let cartContent = '';
+      let total = 0;
+      cart.forEach(item => {
+        cartContent += `
+          <div class="cart-item">
+            ${item.name} x ${item.quantity} - RM${item.total.toFixed(2)}
+            <button class="remove-btn" onclick="removeFromCart('${item.name}')">&times;</button>
+          </div>`;
+        total += item.total;
+      });
+      document.getElementById('cart').innerHTML = cartContent + '<hr><strong>Total: RM' + total.toFixed(2) + '</strong>';
+    }
+
+    function disableForm(state) {
+      document.getElementById("name").disabled = state;
+      document.getElementById("email").disabled = state;
+      document.getElementById("submitBtn").disabled = state;
+      document.getElementById("submitBtn").textContent = state ? "Menghantar..." : "Hantar Tempahan";
+    }
+
+    function submitOrder() {
+      disableForm(true);
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const timestamp = new Date().toLocaleString();
+      const orderDetails = cart.map(item => `${item.name} x ${item.quantity}`).join(', ');
+      const total = cart.reduce((sum, item) => sum + item.total, 0);
+
+      fetch("https://script.google.com/macros/s/AKfycby3YgfU9dM3_5i69y1IAaGSy0xh0nzNBKlhImmbbtMjcHoFRM4HUkb8TnzuWLjVZTTz-w/exec", {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          email,
+          timestamp,
+          order: orderDetails,
+          total
+        })
+      })
+      .then(res => res.text())
+      .then(data => {
+        alert("Tempahan anda telah diterima!");
+        document.getElementById("form").reset();
+        document.getElementById("cart").innerHTML = '';
+        cart = [];
+        disableForm(false);
+      })
+      .catch(error => {
+        alert("Ralat semasa menghantar tempahan. Sila cuba semula.");
+        disableForm(false);
+      });
+    }
+  </script>
+</head>
+<body>
+  <h1>Daily Dose Coffee</h1>
+  <div class="menu-container">
+    <div class="menu-item">
+      <img src="contoh.jpg" alt="House Blend">
+      <strong>House Blend</strong><br>Medium Roast - RM12
+      <br><button onclick="addToCart('House Blend', 12)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+      <img src="contoh.jpg" alt="Ethiopia Single Origin">
+      <strong>Ethiopia Single Origin</strong><br>RM14
+      <br><button onclick="addToCart('Ethiopia Single Origin', 14)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+      <img src="contoh.jpg" alt="Bold Roast">
+      <strong>Bold Roast</strong><br>Dark & Intense - RM13
+      <br><button onclick="addToCart('Bold Roast', 13)">Add to Cart</button>
+    </div>
+  </div>
+  <div id="cart"></div>
+  <form id="form" onsubmit="event.preventDefault(); submitOrder();">
+    <h3>Maklumat Tempahan</h3>
+    <label for="name">Nama:</label>
+    <input type="text" id="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+
+    <button type="submit" id="submitBtn">Hantar Tempahan</button>
+  </form>
+</body>
+</html>
