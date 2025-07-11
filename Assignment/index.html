@@ -6,12 +6,26 @@
   <title>Daily Dose Coffee</title>
   <link rel="icon" type="image/png" href="kopi 2025.png">
   <style>
+    
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f7f3ec;
-      color: #3e2c23;
+      background-image: url('background.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      background-color: #f0f0f0;
+      min-height: 100vh;
       margin: 0;
       padding: 0;
+    }
+
+/* Media query for screens smaller than 768px (e.g., tablets and mobiles) */
+    @media screen and (max-width: 768px) {
+      body {
+        background-image: url('images/mobile-background.jpg'); /* Use a different image for mobile */
+        background-position: top center; /* Adjust position for mobile */
+        background-attachment: scroll; /* Allow background to scroll on mobile if fixed causes issues */
+      }
     }
 
     h1, h3 {
@@ -190,18 +204,23 @@
   <h1>Daily Dose Coffee</h1>
   <div class="menu-container">
     <div class="menu-item">
-      <img src="contoh.jpg" alt="House Blend">
-      <strong>House Blend</strong><br>Medium Roast - RM12
+      <img src="contoh.jpg" alt="House"><br>
+      <strong>House</strong><br>Medium Roast<br> RM12
+      <br><button onclick="addToCart('House', 12)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+      <img src="contoh.jpg" alt="House Blend"><br>
+      <strong>House Blend</strong><br>Medium Roast<br> RM12
       <br><button onclick="addToCart('House Blend', 12)">Add to Cart</button>
     </div>
     <div class="menu-item">
-      <img src="contoh.jpg" alt="Ethiopia Single Origin">
-      <strong>Ethiopia Single Origin</strong><br>RM14
+      <img src="contoh.jpg" alt="Ethiopia Single Origin"><br>
+      <strong>Ethiopia Single Origin</strong><br><br>RM14
       <br><button onclick="addToCart('Ethiopia Single Origin', 14)">Add to Cart</button>
     </div>
     <div class="menu-item">
-      <img src="contoh.jpg" alt="Bold Roast">
-      <strong>Bold Roast</strong><br>Dark & Intense - RM13
+      <img src="contoh.jpg" alt="Bold Roast"> <br>
+      <strong>Bold Roast</strong><br>Dark & Intense <br> RM13
       <br><button onclick="addToCart('Bold Roast', 13)">Add to Cart</button>
     </div>
   </div>
