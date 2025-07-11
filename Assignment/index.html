@@ -3,237 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daily Dose Coffee</title>
-  <link rel="icon" type="image/png" href="kopi 2025.png">
-  <style>
-    
-    body {
-      background-image: url('background.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-attachment: fixed;
-      background-color: #f0f0f0;
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-    }
+    <title>Daily Dose Coffee</title>
+    <link rel="icon" type="image/png" href="kopi 2025.png">
+    <style>
+        body {
+            background-image: url('background.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-color: #f0f0f0;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif; /* Added a fallback font */
+            line-height: 1.6; /* Improved line spacing */
+        }
 
-/* Media query for screens smaller than 768px (e.g., tablets and mobiles) */
-    @media screen and (max-width: 768px) {
-      body {
-        background-image: url('images/mobile-background.jpg'); /* Use a different image for mobile */
-        background-position: top center; /* Adjust position for mobile */
-        background-attachment: scroll; /* Allow background to scroll on mobile if fixed causes issues */
-      }
-    }
+        /* Media query for screens smaller than 768px (e.g., tablets and mobiles) */
+        @media screen and (max-width: 768px) {
+            body {
+                background-image: url('images/mobile-background.jpg'); /* Use a different image for mobile */
+                background-position: top center; /* Adjust position for mobile */
+                background-attachment: scroll; /* Allow background to scroll on mobile if fixed causes issues */
+            }
 
-    h1, h3 {
-      text-align: center;
-      color: #4b2e18;
-    }
+            h1 {
+                font-size: 2.5em; /* Adjust heading size for mobile */
+            }
 
-    .menu-container {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-      padding: 20px;
-    }
+            h3 {
+                font-size: 1.5em; /* Adjust sub-heading size for mobile */
+            }
 
-    .menu-item {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      padding: 15px;
-      text-align: center;
-      width: 200px;
-      transition: transform 0.2s;
-    }
+            .menu-item {
+                width: calc(50% - 20px); /* Two items per row on smaller screens, accounting for gap */
+                max-width: 250px; /* Prevent items from becoming too wide on slightly larger mobile screens */
+                margin-bottom: 20px; /* Add some space between rows */
+            }
 
-    .menu-item:hover {
-      transform: scale(1.05);
-    }
+            .menu-item img {
+                width: 80px; /* Slightly smaller image on mobile */
+                height: 80px;
+            }
 
-    .menu-item img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 10px;
-    }
+            #cart, form {
+                margin: 20px 10px; /* More margin on sides for smaller screens */
+                padding: 10px; /* Slightly less padding */
+            }
 
-    button {
-      background-color: #6f4e37;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+            input {
+                width: calc(100% - 20px); /* Adjust input width for padding */
+            }
+        }
 
-    button:hover {
-      background-color: #593a28;
-    }
+        /* Further narrow for very small screens */
+        @media screen and (max-width: 480px) {
+            .menu-item {
+                width: calc(100% - 20px); /* One item per row on very small screens */
+            }
+        }
 
-    #cart {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      max-width: 500px;
-      margin: 20px auto;
-      padding: 15px;
-      font-size: 16px;
-    }
 
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
+        h1, h3 {
+            text-align: center;
+            color: #4b2e18;
+            margin-top: 20px;
+        }
 
-    .remove-btn {
-      background: none;
-      color: red;
-      font-size: 18px;
-      border: none;
-      cursor: pointer;
-    }
+        .menu-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
 
-    form {
-      background: #fff;
-      max-width: 500px;
-      margin: 30px auto;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
+        .menu-item {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 15px;
+            text-align: center;
+            width: 200px;
+            transition: transform 0.2s;
+        }
 
-    label {
-      display: block;
-      margin-bottom: 5px;
-      margin-top: 15px;
-    }
+        .menu-item:hover {
+            transform: scale(1.05);
+        }
 
-    input {
-      width: 95%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-  </style>
-  <script>
-    let cart = [];
+        .menu-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
 
-    function addToCart(name, price) {
-      const existing = cart.find(item => item.name === name);
-      if (existing) {
-        existing.quantity += 1;
-        existing.total = existing.quantity * price;
-      } else {
-        cart.push({ name, price, quantity: 1, total: price });
-      }
-      updateCart();
-    }
+        button {
+            background-color: #6f4e37;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
 
-    function removeFromCart(name) {
-      cart = cart.filter(item => item.name !== name);
-      updateCart();
-    }
+        button:hover {
+            background-color: #593a28;
+        }
+        
+        input:disabled,
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7; /* Added visual feedback for disabled state */
+        }
 
-    function updateCart() {
-      let cartContent = '';
-      let total = 0;
-      cart.forEach(item => {
-        cartContent += `
-          <div class="cart-item">
-            ${item.name} x ${item.quantity} - RM${item.total.toFixed(2)}
-            <button class="remove-btn" onclick="removeFromCart('${item.name}')">&times;</button>
-          </div>`;
-        total += item.total;
-      });
-      document.getElementById('cart').innerHTML = cartContent + '<hr><strong>Total: RM' + total.toFixed(2) + '</strong>';
-    }
+        #cart {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 16px;
+        }
 
-    function disableForm(state) {
-      document.getElementById("name").disabled = state;
-      document.getElementById("email").disabled = state;
-      document.getElementById("submitBtn").disabled = state;
-      document.getElementById("submitBtn").textContent = state ? "Menghantar..." : "Hantar Tempahan";
-    }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
 
-    function submitOrder() {
-      disableForm(true);
+        .remove-btn {
+            background: none;
+            color: red;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+        }
 
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const timestamp = new Date().toLocaleString();
-      const orderDetails = cart.map(item => `${item.name} x ${item.quantity}`).join(', ');
-      const total = cart.reduce((sum, item) => sum + item.total, 0);
+        form {
+            background: #fff;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
 
-      fetch("https://script.google.com/macros/s/AKfycby3YgfU9dM3_5i69y1IAaGSy0xh0nzNBKlhImmbbtMjcHoFRM4HUkb8TnzuWLjVZTTz-w/exec", {
-        method: "POST",
-        body: JSON.stringify({
-          name,
-          email,
-          timestamp,
-          order: orderDetails,
-          total
-        })
-      })
-      .then(res => res.text())
-      .then(data => {
-        alert("Tempahan anda telah diterima!");
-        document.getElementById("form").reset();
-        document.getElementById("cart").innerHTML = '';
-        cart = [];
-        disableForm(false);
-      })
-      .catch(error => {
-        alert("Ralat semasa menghantar tempahan. Sila cuba semula.");
-        disableForm(false);
-      });
-    }
-  </script>
+        label {
+            display: block;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+
+        input {
+            width: 95%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-bottom: 10px;
+            box-sizing: border-box; /* Ensures padding doesn't add to the width */
+        }
+    </style>
+    <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            const existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.quantity += 1;
+                existing.total = existing.quantity * price;
+            } else {
+                cart.push({ name, price, quantity: 1, total: price });
+            }
+            updateCart();
+        }
+
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            updateCart();
+        }
+
+        function updateCart() {
+            let cartContent = '';
+            let total = 0;
+            if (cart.length === 0) {
+                cartContent = '<p>Your cart is empty.</p>'; // Message for empty cart
+            } else {
+                cart.forEach(item => {
+                    cartContent += `
+                        <div class="cart-item">
+                            ${item.name} x ${item.quantity} - RM${item.total.toFixed(2)}
+                            <button class="remove-btn" onclick="removeFromCart('${item.name}')">&times;</button>
+                        </div>`;
+                    total += item.total;
+                });
+                cartContent += '<hr><strong>Total: RM' + total.toFixed(2) + '</strong>';
+            }
+            document.getElementById('cart').innerHTML = cartContent;
+        }
+
+        function disableForm(state) {
+            document.getElementById("name").disabled = state;
+            document.getElementById("email").disabled = state;
+            document.getElementById("submitBtn").disabled = state;
+            document.getElementById("submitBtn").textContent = state ? "Menghantar..." : "Hantar Tempahan";
+        }
+
+        function submitOrder() {
+            if (cart.length === 0) {
+                alert("Your cart is empty. Please add items before submitting an order.");
+                return; // Stop the function if cart is empty
+            }
+
+            disableForm(true);
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const timestamp = new Date().toLocaleString();
+            const orderDetails = cart.map(item => `${item.name} x ${item.quantity}`).join(', ');
+            const total = cart.reduce((sum, item) => sum + item.total, 0);
+
+            fetch("https://script.google.com/macros/s/AKfycby3YgfU9dM3_5i69y1IAaGSy0xh0nzNBKlhImmbbtMjcHoFRM4HUkb8TnzuWLjVZTTz-w/exec", {
+                method: "POST",
+                body: JSON.stringify({
+                    name,
+                    email,
+                    timestamp,
+                    order: orderDetails,
+                    total
+                })
+            })
+            .then(res => res.text())
+            .then(data => {
+                alert("Tempahan anda telah diterima!");
+                document.getElementById("form").reset();
+                document.getElementById("cart").innerHTML = '';
+                cart = [];
+                updateCart(); // Call updateCart to show "cart is empty" message
+                disableForm(false);
+            })
+            .catch(error => {
+                console.error("Error submitting order:", error); // Log error for debugging
+                alert("Ralat semasa menghantar tempahan. Sila cuba semula.");
+                disableForm(false);
+            });
+        }
+
+        // Initialize cart display when the page loads
+        document.addEventListener('DOMContentLoaded', updateCart);
+    </script>
 </head>
 <body>
-  <h1>Daily Dose Coffee</h1>
-  <div class="menu-container">
-    <div class="menu-item">
-      <img src="contoh.jpg" alt="House"><br>
-      <strong>House</strong><br>Medium Roast<br> RM12
-      <br><button onclick="addToCart('House', 12)">Add to Cart</button>
+    <h1>Daily Dose Coffee</h1>
+    <div class="menu-container">
+        <div class="menu-item">
+            <img src="contoh.jpg" alt="House Coffee"><br>
+            <strong>House</strong><br>Medium Roast<br> RM12<br>
+            <button onclick="addToCart('House', 12)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <img src="contoh.jpg" alt="House Blend Coffee"><br>
+            <strong>House Blend</strong><br>Medium Roast<br> RM12<br>
+            <button onclick="addToCart('House Blend', 12)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <img src="contoh.jpg" alt="Ethiopia Single Origin Coffee"><br>
+            <strong>Ethiopia Single Origin</strong><br><br>RM14<br>
+            <button onclick="addToCart('Ethiopia Single Origin', 14)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+            <img src="contoh.jpg" alt="Bold Roast Coffee"><br>
+            <strong>Bold Roast</strong><br>Dark & Intense <br> RM13<br>
+            <button onclick="addToCart('Bold Roast', 13)">Add to Cart</button>
+        </div>
     </div>
-    <div class="menu-item">
-      <img src="contoh.jpg" alt="House Blend"><br>
-      <strong>House Blend</strong><br>Medium Roast<br> RM12
-      <br><button onclick="addToCart('House Blend', 12)">Add to Cart</button>
-    </div>
-    <div class="menu-item">
-      <img src="contoh.jpg" alt="Ethiopia Single Origin"><br>
-      <strong>Ethiopia Single Origin</strong><br><br>RM14
-      <br><button onclick="addToCart('Ethiopia Single Origin', 14)">Add to Cart</button>
-    </div>
-    <div class="menu-item">
-      <img src="contoh.jpg" alt="Bold Roast"> <br>
-      <strong>Bold Roast</strong><br>Dark & Intense <br> RM13
-      <br><button onclick="addToCart('Bold Roast', 13)">Add to Cart</button>
-    </div>
-  </div>
-  <div id="cart"></div>
-  <form id="form" onsubmit="event.preventDefault(); submitOrder();">
-    <h3>Maklumat Tempahan</h3>
-    <label for="name">Nama:</label>
-    <input type="text" id="name" required>
+    <div id="cart"></div>
+    <form id="form" onsubmit="event.preventDefault(); submitOrder();">
+        <h3>Maklumat Tempahan</h3>
+        <label for="name">Nama:</label>
+        <input type="text" id="name" required>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
 
-    <button type="submit" id="submitBtn">Hantar Tempahan</button>
-  </form>
+        <button type="submit" id="submitBtn">Hantar Tempahan</button>
+    </form>
 </body>
 </html>
