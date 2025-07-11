@@ -213,7 +213,7 @@
             document.getElementById("name").disabled = state;
             document.getElementById("email").disabled = state;
             document.getElementById("submitBtn").disabled = state;
-            document.getElementById("submitBtn").textContent = state ? "Menghantar..." : "Hantar Tempahan";
+            document.getElementById("submitBtn").textContent = state ? "Sending..." : "Hantar Tempahan";
         }
 
         function submitOrder() {
@@ -242,7 +242,7 @@
             })
             .then(res => res.text())
             .then(data => {
-                alert("Tempahan anda telah diterima!");
+                alert("Your order has been accepted by the store!");
                 document.getElementById("form").reset();
                 document.getElementById("cart").innerHTML = '';
                 cart = [];
