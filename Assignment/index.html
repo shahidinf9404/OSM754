@@ -16,51 +16,51 @@
             min-height: 100vh;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif; /* Added a fallback font */
-            line-height: 1.6; /* Improved line spacing */
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
         }
 
-        /* Media query for screens smaller than 768px (e.g., tablets and mobiles) */
+        
         @media screen and (max-width: 768px) {
             body {
-                background-image: url('images/mobile-background.jpg'); /* Use a different image for mobile */
-                background-position: top center; /* Adjust position for mobile */
-                background-attachment: scroll; /* Allow background to scroll on mobile if fixed causes issues */
+                background-image: url('background.png');
+                background-position: top center;
+                background-attachment: scroll; 
             }
 
             h1 {
-                font-size: 2.5em; /* Adjust heading size for mobile */
+                font-size: 2.5em; 
             }
 
             h3 {
-                font-size: 1.5em; /* Adjust sub-heading size for mobile */
+                font-size: 1.5em; 
             }
 
             .menu-item {
-                width: calc(50% - 20px); /* Two items per row on smaller screens, accounting for gap */
-                max-width: 250px; /* Prevent items from becoming too wide on slightly larger mobile screens */
-                margin-bottom: 20px; /* Add some space between rows */
+                width: calc(50% - 20px); 
+                max-width: 250px; 
+                margin-bottom: 20px; 
             }
 
             .menu-item img {
-                width: 80px; /* Slightly smaller image on mobile */
+                width: 80px; 
                 height: 80px;
             }
 
             #cart, form {
-                margin: 20px 10px; /* More margin on sides for smaller screens */
-                padding: 10px; /* Slightly less padding */
+                margin: 20px 10px; 
+                padding: 10px; 
             }
 
             input {
-                width: calc(100% - 20px); /* Adjust input width for padding */
+                width: calc(100% - 20px); 
             }
         }
 
         /* Further narrow for very small screens */
         @media screen and (max-width: 480px) {
             .menu-item {
-                width: calc(100% - 20px); /* One item per row on very small screens */
+                width: calc(100% - 20px); 
             }
         }
 
@@ -118,7 +118,7 @@
         input:disabled,
         button:disabled {
             cursor: not-allowed;
-            opacity: 0.7; /* Added visual feedback for disabled state */
+            opacity: 0.7; 
         }
 
         #cart {
@@ -168,7 +168,7 @@
             border: 1px solid #ccc;
             font-size: 16px;
             margin-bottom: 10px;
-            box-sizing: border-box; /* Ensures padding doesn't add to the width */
+            box-sizing: border-box; 
         }
     </style>
     <script>
@@ -194,7 +194,7 @@
             let cartContent = '';
             let total = 0;
             if (cart.length === 0) {
-                cartContent = '<p>Your cart is empty.</p>'; // Message for empty cart
+                cartContent = '<p>Your cart is empty.</p>'; 
             } else {
                 cart.forEach(item => {
                     cartContent += `
@@ -219,7 +219,7 @@
         function submitOrder() {
             if (cart.length === 0) {
                 alert("Your cart is empty. Please add items before submitting an order.");
-                return; // Stop the function if cart is empty
+                return; 
             }
 
             disableForm(true);
@@ -246,17 +246,17 @@
                 document.getElementById("form").reset();
                 document.getElementById("cart").innerHTML = '';
                 cart = [];
-                updateCart(); // Call updateCart to show "cart is empty" message
+                updateCart(); 
                 disableForm(false);
             })
             .catch(error => {
-                console.error("Error submitting order:", error); // Log error for debugging
+                console.error("Error submitting order:", error); 
                 alert("Ralat semasa menghantar tempahan. Sila cuba semula.");
                 disableForm(false);
             });
         }
 
-        // Initialize cart display when the page loads
+        
         document.addEventListener('DOMContentLoaded', updateCart);
     </script>
 </head>
